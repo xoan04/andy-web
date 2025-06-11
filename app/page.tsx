@@ -1,34 +1,25 @@
-"use client"
+import LandingHeader from "@/components/landing/landing-header"
+import HeroSection from "@/components/landing/hero-section"
+import FeaturesSection from "@/components/landing/features-section"
+import CoursesCarousel from "@/components/landing/courses-carousel"
+import TestimonialsSection from "@/components/landing/testimonials-section"
+import PartnersSection from "@/components/landing/partners-section"
+import FaqSection from "@/components/landing/faq-section"
+import CtaSection from "@/components/landing/cta-section"
+import LandingFooter from "@/components/landing/landing-footer"
 
-import { useEffect } from "react"
-import { useRouter } from "next/navigation"
-import { useAuth } from "@/components/auth/auth-provider"
-import { LoginForm } from "@/components/auth/login-form"
-
-export default function HomePage() {
-  const { isAuthenticated, login, isLoading } = useAuth()
-  const router = useRouter()
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      router.push("/dashboard")
-    }
-  }, [isAuthenticated, router])
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-neutral-50">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-800 mx-auto"></div>
-          <p className="mt-4 text-neutral-600">Cargando...</p>
-        </div>
-      </div>
-    )
-  }
-
-  if (!isAuthenticated) {
-    return <LoginForm onLogin={login} />
-  }
-
-  return null
+export default function LandingPage() {
+  return (
+    <main>
+      <LandingHeader />
+      <HeroSection />
+      <FeaturesSection />
+      <CoursesCarousel />
+      <TestimonialsSection />
+      <PartnersSection />
+      <FaqSection />
+      <CtaSection />
+      <LandingFooter />
+    </main>
+  )
 }

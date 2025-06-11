@@ -1,14 +1,15 @@
 "use client"
 
-import type React from "react"
+import React, { useState, useEffect } from "react"
 
-import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { GraduationCap, Eye, EyeOff, Lock, Mail, AlertCircle } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { useAuth } from "@/components/auth/auth-provider"
 
 interface LoginFormProps {
   onLogin: (email: string, password: string) => Promise<boolean>
@@ -20,6 +21,8 @@ export function LoginForm({ onLogin }: LoginFormProps) {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
+  const router = useRouter()
+  const { user } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -37,6 +40,17 @@ export function LoginForm({ onLogin }: LoginFormProps) {
       setIsLoading(false)
     }
   }
+
+  // Redirección automática después del login
+  useEffect(() => {
+    if (user) {
+      if (user.role === "estudiante") {
+        router.push("/estudiante")
+      } else {
+        router.push("/dashboard")
+      }
+    }
+  }, [user, router])
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 to-primary-100 p-4">
@@ -128,6 +142,9 @@ export function LoginForm({ onLogin }: LoginFormProps) {
               </p>
               <p>
                 <strong>Coordinador:</strong> coordinador@edupanel.com / coord123
+              </p>
+              <p>
+                <strong>Estudiante:</strong> estudiante@edupanel.com / estudiante123
               </p>
             </div>
           </div>

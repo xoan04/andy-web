@@ -7,13 +7,22 @@ import { LoginForm } from "@/components/auth/login-form"
 import { AppSidebar } from "@/components/app-sidebar"
 import { Header } from "@/components/layout/header"
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar"
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const { isAuthenticated, login, isLoading } = useAuth()
+  const { isAuthenticated, login, isLoading, user } = useAuth()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (user?.role === "estudiante") {
+      router.replace("/estudiante")
+    }
+  }, [user, router])
 
   if (isLoading) {
     return (
