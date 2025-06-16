@@ -36,7 +36,7 @@ const FloatingElement = styled(Box)(({ theme }) => ({
   },
 }))
 
-export default function HeroSection() {
+export default function StyledHeroSection() {
   const ref = useRef(null)
   const { scrollY } = useScroll({ target: ref })
   const y = useTransform(scrollY, [0, 300], [0, 60])
