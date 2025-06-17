@@ -1,5 +1,5 @@
 "use client"
-import Image from "next/image"
+import { Box, Container, Typography, Avatar } from "@mui/material"
 import { motion } from "framer-motion"
 
 const testimonials = [
@@ -25,12 +25,29 @@ const testimonials = [
 
 export default function TestimonialsSection() {
   return (
-    <section className="py-20 bg-[#F3F4F6]">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-[#374151] text-center mb-12">
+    <Box sx={{ py: 10, bgcolor: "#F3F4F6" }}>
+      <Container maxWidth="lg">
+        <Typography
+          variant="h2"
+          sx={{
+            textAlign: "center",
+            mb: 8,
+            color: "#374151",
+            fontWeight: "bold"
+          }}
+        >
           Lo que dicen nuestros estudiantes
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        </Typography>
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: {
+              xs: "1fr",
+              md: `repeat(${testimonials.length}, 1fr)`
+            },
+            gap: 4
+          }}
+        >
           {testimonials.map((t, idx) => (
             <motion.div
               key={idx}
@@ -39,21 +56,23 @@ export default function TestimonialsSection() {
               transition={{ duration: 0.8, delay: idx * 0.18, type: "spring", bounce: 0.3 }}
               viewport={{ once: true, amount: 0.3 }}
               whileHover={{ scale: 1.04, boxShadow: "0 4px 32px #1E3A8A33" }}
-              className="bg-white rounded-xl shadow-md p-8 flex flex-col items-center text-center hover:shadow-xl transition-shadow group"
+              style={{ background: "white", borderRadius: 16, boxShadow: "0 2px 8px #0001", padding: 32, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", transition: "box-shadow 0.3s" }}
             >
               <motion.div
                 whileHover={{ scale: 1.15, rotate: -6 }}
-                className="mb-4 rounded-full overflow-hidden"
+                style={{ marginBottom: 16, borderRadius: "50%", overflow: "hidden" }}
               >
-                <Image src={t.image} alt={t.name} width={80} height={80} className="rounded-full" />
+                <Avatar src={t.image} alt={t.name} sx={{ width: 80, height: 80 }} />
               </motion.div>
-              <p className="text-[#374151] mb-4">“{t.text}”</p>
-              <div className="font-semibold text-[#1E3A8A]">{t.name}</div>
-              <div className="text-sm text-[#3B82F6]">{t.role}</div>
+              <Typography sx={{ color: "#374151", mb: 2, fontStyle: "italic" }}>
+                “{t.text}”
+              </Typography>
+              <Typography sx={{ fontWeight: 600, color: "#1E3A8A" }}>{t.name}</Typography>
+              <Typography sx={{ fontSize: 14, color: "#3B82F6" }}>{t.role}</Typography>
             </motion.div>
           ))}
-        </div>
-      </div>
-    </section>
+        </Box>
+      </Container>
+    </Box>
   )
 } 

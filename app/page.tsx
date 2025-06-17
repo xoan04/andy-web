@@ -4,7 +4,6 @@ import FeaturesSection from "@/components/landing/features-section"
 import CoursesCarousel from "@/components/landing/courses-carousel"
 import TestimonialsSection from "@/components/landing/testimonials-section"
 import PartnersSection from "@/components/landing/partners-section"
-import FaqSection from "@/components/landing/faq-section"
 import CtaSection from "@/components/landing/cta-section"
 import LandingFooter from "@/components/landing/landing-footer"
 
@@ -17,7 +16,6 @@ export default function LandingPage() {
       <CoursesCarousel />
       <TestimonialsSection />
       <PartnersSection />
-      <FaqSection />
       <CtaSection />
       <LandingFooter />
     </main>
